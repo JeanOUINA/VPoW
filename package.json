@@ -1,0 +1,42 @@
+{
+  "name": "vpow",
+  "version": "0.1.0",
+  "description": "A distributed PoW server for Vite !",
+  "main": "dist/index.js",
+  "scripts": {
+    "start": "node dist/cli",
+    "watch": "tsc --watch",
+    "build": "tsc",
+    "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
+    "lint-fix": "eslint . --ext .js,.jsx,.ts,.tsx --fix",
+    "test": "npm run build && npm start"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jeanouina/vpow-client.git"
+  },
+  "author": "JeanOUINA",
+  "license": "UNLICENSED",
+  "bugs": {
+    "url": "https://github.com/jeanouina/vpow-client/issues"
+  },
+  "homepage": "https://github.com/jeanouina/vpow-client#readme",
+  "devDependencies": {
+    "@types/cross-spawn": "^6.0.2",
+    "@types/node": "^17.0.13",
+    "@types/node-fetch": "^2.5.12",
+    "@types/ws": "^8.2.2",
+    "@typescript-eslint/eslint-plugin": "^5.10.1",
+    "@typescript-eslint/parser": "^5.10.1",
+    "eslint": "^8.8.0",
+    "typescript": "^4.5.5"
+  },
+  "dependencies": {
+    "abort-controller": "^3.0.0",
+    "bongodl": "^1.0.7",
+    "cross-spawn": "^7.0.3",
+    "modernlog": "^1.0.1",
+    "node-fetch": "^2.6.7",
+    "ws": "^8.5.0"
+  }
+}
