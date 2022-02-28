@@ -1,14 +1,18 @@
-import { existsSync, writeFileSync } from "fs";
-import { chmod, mkdir } from "fs/promises";
 import { patch as patchConsole } from "modernlog"
+patchConsole()
+
+if(process.version.split(".")[0] !== "v16"){
+    console.warn(`You're running an unsupported NodeJS version (${process.version}). If you encounter bugs, please install NodeJS v16 https://nodejs.org`)
+}
+
+import { existsSync, writeFileSync } from "fs";
+import { chmod, mkdir } from "fs-extra";
 import { dirname } from "path";
 import { downloadURL } from "./http";
 import * as crypto from "crypto"
 import { fetchWorkServerInfos, getDownloadURL, getInstallPath, launchWorkServer } from "./work_server";
 import { connect } from "./ws";
 import fetch from "node-fetch";
-
-patchConsole()
 
 ;(async () => {
     let [
@@ -123,5 +127,24 @@ patchConsole()
         payout: string[]
     }) => {
         console.log(`${data.hash}:Accepted:${data.payout.join(" ")}`)
+    })
+    connection.on("work_cancel", async (data:{
+        action: string,
+        hash: string
+    }) => {
+        if(!works[data.hash])return
+        works[data.hash]()
+        delete works[data.hash]
+        
+        await fetch(`http://127.0.0.1:${port}/`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                action: "work_cancel",
+                hash: data.hash
+            })
+        })
     })
 })()
