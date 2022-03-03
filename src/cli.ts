@@ -1,3 +1,4 @@
+#! /usr/bin/env node
 import { patch as patchConsole } from "modernlog"
 patchConsole()
 
@@ -20,7 +21,7 @@ import fetch from "node-fetch";
         gpuId
     ] = process.argv.slice(2)
     if(!address || !/^vite_[\dabcdef]{50}$/.test(address)){
-        console.error(`Invalid address: ${address}. Usage: \`npx vite-pow vite_youraddress 0:0\``)
+        console.error(`Invalid address: ${address}. Usage: npx vpow <YOUR_VITE_ADDRESS> 0:0`)
         return
     }
     if(!gpuId){
