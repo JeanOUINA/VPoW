@@ -7,11 +7,11 @@ import { existsSync, writeFileSync } from "fs";
 import { chmod, mkdir } from "fs-extra";
 import { dirname } from "path";
 import { downloadURL } from "./http";
-import { fetchWorkServerInfos, getDownloadURL, getInstallPath, launchWorkServer } from "./work_server";
+import { fetchWorkServerInfos, getDownloadURL, getInstallPath } from "./work_server";
 import spawn from "cross-spawn";
 
-;(async () => {
-    const infos = await fetchWorkServerInfos(process.platform)
+(async () => {
+    const infos = await fetchWorkServerInfos()
     const installPath = getInstallPath(process.platform)
     if(existsSync(installPath)){
         let installedInfos = require(installPath+".json")

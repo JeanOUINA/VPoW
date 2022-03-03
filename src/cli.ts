@@ -15,8 +15,9 @@ import { fetchWorkServerInfos, getDownloadURL, getInstallPath, launchWorkServer 
 import { connect } from "./ws";
 import fetch from "node-fetch";
 
-;(async () => {
+(async () => {
     let [
+        // eslint-disable-next-line prefer-const
         address,
         gpuId
     ] = process.argv.slice(2)
@@ -30,7 +31,7 @@ import fetch from "node-fetch";
 
     console.log("Launching VPoW")
     console.info("Fetching data from api")
-    const infos = await fetchWorkServerInfos(process.platform)
+    const infos = await fetchWorkServerInfos()
     const installPath = getInstallPath(process.platform)
     if(existsSync(installPath)){
         console.info("Verifying installation")

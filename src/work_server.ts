@@ -9,7 +9,7 @@ export interface DownloadInfos {
     }
 }
 
-export async function fetchWorkServerInfos(platform:NodeJS.Platform){
+export async function fetchWorkServerInfos(){
     return callViteApi("/work_server/infos.json")
 }
 
