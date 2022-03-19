@@ -38,7 +38,8 @@ export function downloadURL(url:string, path:string){
             concurrent: 3,
             emitStatus: false
         }).on("end", async (filepath) => {
-            await fs.rename(filepath, path)
+            await fs.copyFile(filepath, path)
+            await fs.unlink(filepath)
             await fs.rm(dirname(filepath), {recursive: true})
             resolve()
         }).on("error", error => {
