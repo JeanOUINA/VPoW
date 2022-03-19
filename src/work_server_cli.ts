@@ -12,7 +12,7 @@ import spawn from "cross-spawn";
 
 (async () => {
     const infos = await fetchWorkServerInfos()
-    const installPath = getInstallPath(process.platform)
+    const installPath = getInstallPath(process.platform, process.arch)
     if(existsSync(installPath)){
         let installedInfos = require(installPath+".json")
         if(installedInfos.version !== infos.version){

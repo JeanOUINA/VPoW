@@ -14,13 +14,17 @@ export async function fetchWorkServerInfos(){
 }
 
 export function getDownloadURL(infos:DownloadInfos):string{
-    const filename = infos.files[process.platform]
-    if(!filename)throw new Error(`Platform "${process.platform}" is not supported.`)
+    let platform = process.platform
+    if(platform === "darwin"){
+        platform += process.arch
+    }
+    const filename = infos.files[platform]
+    if(!filename)throw new Error(`Platform "${process.platform} ${process.arch}" is not supported.`)
     return `https://vite-api.thomiz.dev/work_server/${infos.version}/${filename}`
 }
 
-export function getInstallPath(platform:NodeJS.Platform){
-    return join(__dirname, `../work_server/${platform}-work-server${platform === "win32" ? ".exe" : ""}`)
+export function getInstallPath(platform:NodeJS.Platform, arch: string){
+    return join(__dirname, `../work_server/${platform}-work-server-${arch}${platform === "win32" ? ".exe" : ""}`)
 }
 
 export function launchWorkServer(serverPath:string, gpu:string, port:number){

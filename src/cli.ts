@@ -32,7 +32,7 @@ import fetch from "node-fetch";
     console.log("Launching VPoW")
     console.info("Fetching data from api")
     const infos = await fetchWorkServerInfos()
-    const installPath = getInstallPath(process.platform)
+    const installPath = getInstallPath(process.platform, process.arch)
     if(existsSync(installPath)){
         console.info("Verifying installation")
         let installedInfos = require(installPath+".json")
