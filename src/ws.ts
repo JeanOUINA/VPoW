@@ -87,7 +87,7 @@ export class WebsocketConnection extends EventEmitter {
         switch(data.action){
             case "ping": {
                 this.resetPingTimeout()
-                this.ws.send(JSON.stringify({
+                this.ws?.send(JSON.stringify({
                     action: "pong",
                     d: Date.now()
                 }))

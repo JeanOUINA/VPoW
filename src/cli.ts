@@ -117,7 +117,7 @@ import fetch from "node-fetch";
             delete works[data.hash]
             if(res.status !== 200)return
             const json = await res.json()
-            connection.ws.send(JSON.stringify({
+            connection.ws?.send(JSON.stringify({
                 action: "response",
                 hash: data.hash,
                 nonce: json.work
