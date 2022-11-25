@@ -86,6 +86,22 @@ import fetch from "node-fetch";
     child.on("exit", code => {
         process.exit(code)
     })
+    child.stderr.pipe(process.stderr)
+
+    let data = ""
+    child.stdout.on("data", (chunk) => {
+        data += chunk.toString("utf8")
+        
+        const chunks = data.split(/\n/g)
+        if(chunks.length === 1)return
+        data = data.split(/\n/g).pop()
+        for(const chunk of chunks.slice(0, -1)){
+            // filter out work_cancel
+            if(chunk === "Received work_cancel")continue
+            process.stdout.write(chunk+"\n")
+        }
+    })
+
     process.on("exit", () => {
         // don't forget to close work server
         child.kill()

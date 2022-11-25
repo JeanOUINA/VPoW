@@ -39,7 +39,7 @@ export function launchWorkServer(serverPath:string, gpu:string, port:number){
         {
             cwd: __dirname,
             env: process.env,
-            stdio: "inherit"
+            stdio: "pipe"
         }
     )
     return child
