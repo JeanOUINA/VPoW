@@ -10,7 +10,7 @@ if(!supportedVersions.includes(process.version.split(".")[0])){
     console.warn(`You're running an unsupported NodeJS version (${process.version}). If you encounter bugs, please install NodeJS v18 https://nodejs.org`)
 }
 
-import { appendFileSync, existsSync, writeFile, writeFileSync } from "fs";
+import { appendFileSync, existsSync, writeFileSync } from "fs";
 import { chmod, mkdir, rm } from "fs-extra";
 import { dirname, join } from "path";
 import { downloadURL } from "./http";
@@ -23,7 +23,7 @@ import { checkoutPyPowRepo, clonePyPowRepo, commit, fetchPyPowRepo, getPyPowCurr
 (async () => {
     let address:string
     let gpuId:string
-    let usePyPow:boolean = false
+    let usePyPow = false
     for(let i = 2; i < process.argv.length; i++){
         const arg = process.argv[i]
         switch(arg){
@@ -95,21 +95,7 @@ import { checkoutPyPowRepo, clonePyPowRepo, commit, fetchPyPowRepo, getPyPowCurr
             process.exit(code)
         })
         child.stderr.pipe(process.stderr)
-
-        let data = ""
-        child.stdout.on("data", (chunk) => {
-            process.stdout.write(chunk)
-            /*data += chunk.toString("utf8")
-            
-            const chunks = data.split(/\n/g)
-            if(chunks.length === 1)return
-            data = data.split(/\n/g).pop()
-            for(const chunk of chunks.slice(0, -1)){
-                // filter out work_cancel
-                if(chunk === "Received work_cancel")continue
-                process.stdout.write(chunk+"\n")
-            }*/
-        })
+        child.stdout.pipe(process.stdout)
     }else{
         console.info("Fetching data from api")
         const infos = await fetchWorkServerInfos()
