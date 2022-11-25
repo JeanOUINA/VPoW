@@ -149,6 +149,7 @@ import { checkoutPyPowRepo, clonePyPowRepo, commit, fetchPyPowRepo, getPyPowCurr
         })
         child.stderr.pipe(process.stderr)
 
+        /*
         let data = ""
         child.stdout.on("data", (chunk) => {
             data += chunk.toString("utf8")
@@ -161,7 +162,8 @@ import { checkoutPyPowRepo, clonePyPowRepo, commit, fetchPyPowRepo, getPyPowCurr
                 if(chunk === "Received work_cancel")continue
                 process.stdout.write(chunk+"\n")
             }
-        })
+        })*/
+        child.stdout.pipe(process.stdout)
 
         process.on("exit", () => {
             // don't forget to close work server
