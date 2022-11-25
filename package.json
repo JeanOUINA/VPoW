@@ -38,6 +38,7 @@
     "bongodl": "^1.0.7",
     "cross-spawn": "^7.0.3",
     "fs-extra": "^10.0.1",
+    "isomorphic-git": "^1.21.0",
     "modernlog": "^1.0.1",
     "node-fetch": "^2.6.7",
     "ws": "^8.5.0"
