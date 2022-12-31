@@ -34,7 +34,9 @@ export function launchWorkServer(serverPath:string, gpu:string, port:number){
             "--gpu",
             gpu,
             "--listen-address",
-            "127.0.0.1:"+port
+            "127.0.0.1:"+port,
+            // new flag with 0.3.1
+            "--shuffle"
         ],
         {
             cwd: __dirname,
