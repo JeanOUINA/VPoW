@@ -14,14 +14,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/jeanouina/vpow-client.git"
+    "url": "git+https://github.com/jeanouina/vpow.git"
   },
   "author": "JeanOUINA",
   "license": "UNLICENSED",
   "bugs": {
-    "url": "https://github.com/jeanouina/vpow-client/issues"
+    "url": "https://github.com/jeanouina/vpow/issues"
   },
-  "homepage": "https://github.com/jeanouina/vpow-client#readme",
+  "homepage": "https://github.com/jeanouina/vpow#readme",
   "devDependencies": {
     "@types/cross-spawn": "^6.0.2",
     "@types/fs-extra": "^9.0.13",
