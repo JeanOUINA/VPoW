@@ -216,7 +216,8 @@ import { checkoutPyPowRepo, clonePyPowRepo, commit, fetchPyPowRepo, getPyPowCurr
                     "Content-Type": "application/json"
                 },
                 body: body,
-                signal: abortController.signal
+                signal: abortController.signal,
+                timeout: 10000
             })
             delete works[data.hash]
             let json = await res.json()
@@ -233,7 +234,11 @@ import { checkoutPyPowRepo, clonePyPowRepo, commit, fetchPyPowRepo, getPyPowCurr
                 hash: data.hash,
                 nonce: json.work
             }))
-        }catch{}
+        }catch(err){
+            delete works[data.hash]
+            if(err.name === "AbortError")return
+            console.warn(`Failed to generate work: ${err}`)
+        }
     })
     connection.on("work_accepted", (data:{
         hash: string,
@@ -249,16 +254,21 @@ import { checkoutPyPowRepo, clonePyPowRepo, commit, fetchPyPowRepo, getPyPowCurr
         works[data.hash]()
         delete works[data.hash]
         if(usePyPow)return
-        
-        await fetch(`http://127.0.0.1:${port}/`, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                action: "work_cancel",
-                hash: data.hash
+
+        try{
+            await fetch(`http://127.0.0.1:${port}/`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    action: "work_cancel",
+                    hash: data.hash
+                }),
+                timeout: 10000
             })
-        })
+        }catch(err){
+            console.warn(`Failed to cancel work: ${err}`)
+        }
     })
 })()
